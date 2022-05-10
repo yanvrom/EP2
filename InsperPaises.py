@@ -74,7 +74,7 @@ while jogarnovamente != 'n':
             if temcerteza == 's':
                 break
         elif pescolhido == 'dica' and len(list(custodasdicasemordem.values())) == 0:
-            print('Não há mais dicas disponíveis!')
+            print('Não há tentativas suficientes para comprar dicas!')
         #Se for selecionado dica e o numero de tentativas restantes for maior do que a quantidade mínima que será gasta no mercado de dicas:
         elif pescolhido == 'dica' and tentativasrestantes > min(list(custodasdicasemordem.values())):
             retorno = (mercado(psorteado, dicaspossiveis, custodasdicasemordem, dicas, tentativasrestantes, bandeira, letrascapital))
