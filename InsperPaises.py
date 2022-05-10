@@ -112,7 +112,9 @@ while jogarnovamente != 'n':
         print('Dicas:')
         for nomedica, infodada in dicas.items():
             if nomedica == 'Área':
-                print(f'   -{nomedica}: {infodada} km2')
+                area = f'{infodada:,.0f}'
+                area = area.replace(',', '.')
+                print(f'   -{nomedica}: {area} km2')
             elif nomedica == 'Letras da capital':
                 print(f'   -{nomedica}: ', end = '')
                 letras = f'{infodada}'
