@@ -1,3 +1,5 @@
+#Esta função não está sendo utilizada
+
 from random import choice
 
 def sorteia_letra(palavra, letrasrestritas):

@@ -4,7 +4,6 @@ from sorteia_paisfunc import sorteia_pais
 from basenormalizada import *
 from random import choice
 from mercadodedicas import *
-import math
 
 #guardando paises da base bnorm em uma lista
 listapaises = list(bnorm.keys())
@@ -83,29 +82,8 @@ while jogarnovamente != 'n':
                 dicaspossiveis, custodasdicasemordem, dicas, tentativasrestantes, bandeira, letrascapital = retorno
             
         elif pescolhido == 'inventario':
-            print('Distâncias:')
-            for elemento in distancias:
-                paiss = elemento[0]
-                distanc = elemento[1]
-                print(f'     {distanc//1} km -> {paiss}')
+            print('Exibindo inventário:')
             print()
-            print('Dicas:')
-            for nomedica, infodada in dicas.items():
-                if nomedica == 'Área':
-                    print(f'   -{nomedica}: {infodada} km2')
-                elif nomedica == 'Cores da bandeira':
-                    print(f'   -{nomedica}: ', end = '')
-                    for cor in infodada:
-                        print(cor, end =', ')
-                    print()
-                elif nomedica == 'População':
-                    pop = f'{infodada:,.0f}'
-                    pop = pop.replace(',', '.')
-                    print(f'   -{nomedica}: {pop}')
-                else:
-                    print(f'   -{nomedica}: {infodada}')
-            print()
-            print(f'Você tem \33[1;36m{tentativasrestantes}\33[m tentativa(s)')
         
         else:
             dadosescolhido = bnorm[pescolhido]
@@ -114,46 +92,46 @@ while jogarnovamente != 'n':
             tentativasrestantes -= 1
         
         #exibindo status
-        if pescolhido != 'inventario':
-            print('Distâncias:')
-            for elemento in distancias:
-                paiss = elemento[0]
-                distanc = elemento[1]
-                if distanc > 10000:
-                    print(f'\33[31m     {distanc//1} km -> {paiss}\33[m')
-                elif distanc > 5000:
-                    print(f'\33[35m     {distanc//1} km -> {paiss}\33[m')
-                elif distanc > 2500:
-                    print(f'\33[33m     {distanc//1} km -> {paiss}\33[m')
-                elif distanc > 1250:
-                    print(f'\33[34m     {distanc//1} km -> {paiss}\33[m')
-                elif distanc > 625:
-                    print(f'\33[36m     {distanc//1} km -> {paiss}\33[m')
-                else:
-                    print(f'\33[32m     {distanc//1} km -> {paiss}\33[m')
-            print()
-            print('Dicas:')
-            for nomedica, infodada in dicas.items():
-                if nomedica == 'Área':
-                    print(f'   -{nomedica}: {infodada} km2')
-                elif nomedica == 'Letras da capital':
-                    print(f'   -{nomedica}:', end = '')
-                    for letra in infodada:
-                        print(letra, end = ', ')
-                    print()
-                elif nomedica == 'Cores da bandeira':
-                    print(f'   -{nomedica}: ', end = '')
-                    for cor in infodada:
-                        print(cor, end =', ')
-                    print()
-                elif nomedica == 'População':
-                    pop = f'{infodada:,.0f}'
-                    pop = pop.replace(',', '.')
-                    print(f'   -{nomedica}: {pop}')
-                else:
-                    print(f'   -{nomedica}: {infodada}')
-            print()
-            print(f'Você tem \33[1;36m{tentativasrestantes}\33[m tentativa(s)')
+        print('Distâncias:')
+        for elemento in distancias:
+            paiss = elemento[0]
+            distanc = elemento[1]
+            if distanc > 10000:
+                print(f'\33[31m     {distanc//1} km -> {paiss}\33[m')
+            elif distanc > 5000:
+                print(f'\33[35m     {distanc//1} km -> {paiss}\33[m')
+            elif distanc > 2500:
+                print(f'\33[33m     {distanc//1} km -> {paiss}\33[m')
+            elif distanc > 1250:
+                print(f'\33[34m     {distanc//1} km -> {paiss}\33[m')
+            elif distanc > 625:
+                print(f'\33[36m     {distanc//1} km -> {paiss}\33[m')
+            else:
+                print(f'\33[32m     {distanc//1} km -> {paiss}\33[m')
+        print()
+        print('Dicas:')
+        for nomedica, infodada in dicas.items():
+            if nomedica == 'Área':
+                print(f'   -{nomedica}: {infodada} km2')
+            elif nomedica == 'Letras da capital':
+                print(f'   -{nomedica}: ', end = '')
+                letras = f'{infodada}'
+                letras = letras.replace('[', '').replace(']', '').replace("'", '')
+                print(letras)
+                print()
+            elif nomedica == 'Cores da bandeira':
+                print(f'   -{nomedica}: ', end = '')
+                for cor in infodada:
+                    print(cor, end =', ')
+                print()
+            elif nomedica == 'População':
+                pop = f'{infodada:,.0f}'
+                pop = pop.replace(',', '.')
+                print(f'   -{nomedica}: {pop}')
+            else:
+                print(f'   -{nomedica}: {infodada}')
+        print()
+        print(f'Você tem \33[1;36m{tentativasrestantes}\33[m tentativa(s)')
 
     
     #Comunicando se o jogo foi ganhado ou perdido.
