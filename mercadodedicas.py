@@ -11,8 +11,9 @@ def mercado(psorteado, dicaspossiveis, custodasdicasemordem, dicas, tentativasre
         print(dicasnomes[dicapossivel])
     print('0. Sem dica')
     print('----------------------------------------')
-
-    dicaescolhida = int(input('Escolha sua opção [0|1|2|3|4|5]: '))
+    dicaspossiveisstr = f'{dicaspossiveis}'
+    dicaspossiveisstr = dicaspossiveisstr.replace(',' , '|').replace(' ', '')
+    dicaescolhida = int(input(f'Escolha sua opção {dicaspossiveisstr} : '))
     while dicaescolhida not in dicaspossiveis:
         print()
         dicaescolhida = int(input('Escolha uma opção possível ou 0 para sair: '))
