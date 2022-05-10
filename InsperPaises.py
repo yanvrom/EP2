@@ -121,8 +121,9 @@ while jogarnovamente != 'n':
                 print()
             elif nomedica == 'Cores da bandeira':
                 print(f'   -{nomedica}: ', end = '')
-                for cor in infodada:
-                    print(cor, end =', ')
+                cores = f'{infodada}'
+                cores = cores.replace('[', '').replace(']', '').replace("'", '')
+                print(cores)
                 print()
             elif nomedica == 'População':
                 pop = f'{infodada:,.0f}'
