@@ -11,17 +11,17 @@ listapaises = list(bnorm.keys())
 EARTH_RADIUS = 6371
 
 #Dados terminados de carregar, inicia-se a abertura do jogo:
-print(" ============================")
+print(" \33[33m============================")
 print("|                            |")
 print("| Bem-vindo ao Insper Países |")
 print("|                            |")
-print(" ==== Design de Software ====")
+print(" ==== Design de Software ====\33[m")
 print()
 print(" Comandos:")
 print()
-print("     dica       - entra no mercado de dicas")
-print("     desisto    - desiste da rodada")
-print("     inventario - exibe sua posição")
+print("     \33[32mdica       - entra no mercado de dicas")
+print("     \33[31mdesisto    - desiste da rodada")
+print("     \33[35minventario - exibe sua posição\33[m")
 print()
 
 jogarnovamente = 's'
@@ -55,7 +55,7 @@ while jogarnovamente != 'n':
     custodasdicasemordem = {1:4, 2:3, 3:6, 4:5, 5:7}
     distancias = []
     print("Um país foi escolhido, tente adivinhar!")
-    print(f'Você tem {tentativasrestantes} tentativa(s)')
+    print(f'Você tem \33[1;36m{tentativasrestantes}\33[m tentativa(s)')
     print()
     pescolhido = 'Nome de nenhum país aqui'
     
@@ -105,7 +105,7 @@ while jogarnovamente != 'n':
                 else:
                     print(f'   -{nomedica}: {infodada}')
             print()
-            print(f'Você tem {tentativasrestantes} tentativa(s)')
+            print(f'Você tem \33[1;36m{tentativasrestantes}\33[m tentativa(s)')
         
         else:
             dadosescolhido = bnorm[pescolhido]
@@ -119,7 +119,18 @@ while jogarnovamente != 'n':
             for elemento in distancias:
                 paiss = elemento[0]
                 distanc = elemento[1]
-                print(f'     {distanc//1} km -> {paiss}')
+                if distanc > 10000:
+                    print(f'\33[31m     {distanc//1} km -> {paiss}\33[m')
+                elif distanc > 5000:
+                    print(f'\33[35m     {distanc//1} km -> {paiss}\33[m')
+                elif distanc > 2500:
+                    print(f'\33[33m     {distanc//1} km -> {paiss}\33[m')
+                elif distanc > 1250:
+                    print(f'\33[34m     {distanc//1} km -> {paiss}\33[m')
+                elif distanc > 625:
+                    print(f'\33[36m     {distanc//1} km -> {paiss}\33[m')
+                else:
+                    print(f'\33[32m     {distanc//1} km -> {paiss}\33[m')
             print()
             print('Dicas:')
             for nomedica, infodada in dicas.items():
@@ -142,12 +153,12 @@ while jogarnovamente != 'n':
                 else:
                     print(f'   -{nomedica}: {infodada}')
             print()
-            print(f'Você tem {tentativasrestantes} tentativa(s)')
+            print(f'Você tem \33[1;36m{tentativasrestantes}\33[m tentativa(s)')
 
     
     #Comunicando se o jogo foi ganhado ou perdido.
     if pescolhido == psorteado:
-        print(f'*** Parabéns! Você acertou após {20 - tentativasrestantes} tentativas!')
+        print(f'*** Parabéns! Você acertou após \33[1;36m{20 - tentativasrestantes}\33[m tentativas!')
     elif pescolhido != psorteado:
         print(f'>>> Você perdeu, o país era: {psorteado}')
     
