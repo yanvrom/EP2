@@ -7,3 +7,5 @@ def esta_na_lista(pais, listapaises):
         return True
     else:
         return False
+
+#não utilizar

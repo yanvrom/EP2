@@ -10,6 +10,7 @@ import math
 listapaises = list(bnorm.keys())
 EARTH_RADIUS = 6371
 
+#Dados terminados de carregar, inicia-se a abertura do jogo:
 print(" ============================")
 print("|                            |")
 print("| Bem-vindo ao Insper Países |")
@@ -30,19 +31,40 @@ while jogarnovamente != 'n':
     #Sorteando o país da base e guardando suas informações
     psorteado = sorteia_pais(bnorm)
     dados = bnorm[psorteado]
+    capital = dados['capital'].lower()
+    letrascapital = []
+    for letra in capital:
+        if letra not in letrascapital:
+            letrascapital.append(letra)
+    simbolos = ['.', ',', '-', ';', ' ']
+    for simbolo in simbolos:
+        if simbolo in letrascapital:
+            letrascapital.remove(simbolo)
+    bandeira = []
+    for cor, valor in dados['bandeira'].items():
+        if valor > 0:
+            bandeira.append(cor)
+    if 'outras' in bandeira:
+        bandeira.remove('outras')
+    
     
     #redefinindo os dados
     tentativasrestantes = 20
     dicas = {}
     dicaspossiveis = [0, 1, 2, 3, 4, 5]
+    custodasdicasemordem = {1:4, 2:3, 3:6, 4:5, 5:7}
     distancias = []
     print("Um país foi escolhido, tente adivinhar!")
     print(f'Você tem {tentativasrestantes} tentativa(s)')
     print()
-    pescolhido = input('Qual seu palpite? ')
+    pescolhido = 'Nome de nenhum país aqui'
     
-    #Aqui começa o jogo em sí, que roda até que acabem as tentativas ou que o break aconteça pelo pais ter sido acertado.
+    #Aqui começa o jogo em sí, que roda até que acabem as tentativas ou que o while pare pelo pais ter sido acertado.
     while tentativasrestantes > 0 and pescolhido != psorteado:
+        pescolhido = input('Qual seu palpite? ')
+        if pescolhido == psorteado:
+            tentativasrestantes -= 1
+            break
         while pescolhido not in listapaises and pescolhido not in ['dica', 'desisto', 'inventario']:
             print('País desconhecido.')
             pescolhido = input('Qual seu palpite? ')
@@ -52,36 +74,38 @@ while jogarnovamente != 'n':
             print()
             if temcerteza == 's':
                 break
-        elif pescolhido == 'dica' and tentativasrestantes >= 3:
-            retorno = (mercado(psorteado, dicaspossiveis, dicas, tentativasrestantes))
+        elif pescolhido == 'dica' and len(list(custodasdicasemordem.values())) == 0:
+            print('Não há mais dicas disponíveis!')
+        #Se for selecionado dica e o numero de tentativas restantes for maior do que a quantidade mínima que será gasta no mercado de dicas:
+        elif pescolhido == 'dica' and tentativasrestantes > min(list(custodasdicasemordem.values())):
+            retorno = (mercado(psorteado, dicaspossiveis, custodasdicasemordem, dicas, tentativasrestantes, bandeira, letrascapital))
             if retorno != 0:
-                dicadada, numerodicaescolhida = retorno
-                if numerodicaescolhida == 1:
-                    if 'Cores da bandeira' not in list(dicas.keys()):
-                        dicas['Cores da bandeira'] = [dicadada]
-                    else:
-                        dicas['Cores da bandeira'].append(dicadada)
-                    tentativasrestantes -= 4
-                elif numerodicaescolhida == 2:
-                    if 'Letras da capital' not in list(dicas.keys()):
-                        dicas['Letras da capital'] = [dicadada]
-                    else:
-                        dicas['Letras da capital'].append(dicadada)
-                    tentativasrestantes -= 3
-                elif numerodicaescolhida == 3:
-                    dicas['Área'] = dicadada
-                    tentativasrestantes -= 6
-                elif numerodicaescolhida == 4:
-                    dicas['População'] = dicadada
-                    tentativasrestantes -= 5
-                elif numerodicaescolhida == 5:
-                    dicas['Continente'] = dicadada
-                    tentativasrestantes -= 7
-                if numerodicaescolhida not in [1, 2]:
-                    dicaspossiveis.remove(numerodicaescolhida)
-        elif pescolhido == 'dica' and tentativasrestantes < 3:
-            print('Você não possui tentativas suficientes para comprar dicas.')
-        # elif pescolhido == 'inventario':
+                dicaspossiveis, custodasdicasemordem, dicas, tentativasrestantes, bandeira, letrascapital = retorno
+            
+        elif pescolhido == 'inventario':
+            print('Distâncias:')
+            for elemento in distancias:
+                paiss = elemento[0]
+                distanc = elemento[1]
+                print(f'     {distanc//1} km -> {paiss}')
+            print()
+            print('Dicas:')
+            for nomedica, infodada in dicas.items():
+                if nomedica == 'Área':
+                    print(f'   -{nomedica}: {infodada} km2')
+                elif nomedica == 'Cores da bandeira':
+                    print(f'   -{nomedica}: ', end = '')
+                    for cor in infodada:
+                        print(cor, end =', ')
+                    print()
+                elif nomedica == 'População':
+                    pop = f'{infodada:,.0f}'
+                    pop = pop.replace(',', '.')
+                    print(f'   -{nomedica}: {pop}')
+                else:
+                    print(f'   -{nomedica}: {infodada}')
+            print()
+            print(f'Você tem {tentativasrestantes} tentativa(s)')
         
         else:
             dadosescolhido = bnorm[pescolhido]
@@ -90,27 +114,36 @@ while jogarnovamente != 'n':
             tentativasrestantes -= 1
         
         #exibindo status
-        print('Distâncias:')
-        for elemento in distancias:
-            paiss = elemento[0]
-            distanc = elemento[1]
-            print(f'     {distanc//1} km -> {paiss}')
-        print()
-        print('Dicas:')
-        for nomedica, infodada in dicas.items():
-            if nomedica == 'Área':
-                print(f'   -{nomedica}: {infodada} km2')
-            elif nomedica == 'Cores da bandeira':
-                print(f'   -{nomedica}: ', end = '')
-                for cor in infodada:
-                    print(cor, end =', ')
-                print()
-            else:
-                print(f'   -{nomedica}: {infodada}')
-        print()
-        print(f'Você tem {tentativasrestantes} tentativa(s)')
+        if pescolhido != 'inventario':
+            print('Distâncias:')
+            for elemento in distancias:
+                paiss = elemento[0]
+                distanc = elemento[1]
+                print(f'     {distanc//1} km -> {paiss}')
+            print()
+            print('Dicas:')
+            for nomedica, infodada in dicas.items():
+                if nomedica == 'Área':
+                    print(f'   -{nomedica}: {infodada} km2')
+                elif nomedica == 'Letras da capital':
+                    print(f'   -{nomedica}:', end = '')
+                    for letra in infodada:
+                        print(letra, end = ', ')
+                    print()
+                elif nomedica == 'Cores da bandeira':
+                    print(f'   -{nomedica}: ', end = '')
+                    for cor in infodada:
+                        print(cor, end =', ')
+                    print()
+                elif nomedica == 'População':
+                    pop = f'{infodada:,.0f}'
+                    pop = pop.replace(',', '.')
+                    print(f'   -{nomedica}: {pop}')
+                else:
+                    print(f'   -{nomedica}: {infodada}')
+            print()
+            print(f'Você tem {tentativasrestantes} tentativa(s)')
 
-        pescolhido = input('Qual seu palpite? ')
     
     #Comunicando se o jogo foi ganhado ou perdido.
     if pescolhido == psorteado:
