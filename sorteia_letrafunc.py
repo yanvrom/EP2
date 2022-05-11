@@ -1,4 +1,4 @@
-#Esta função não está sendo utilizada
+#Esta função não está sendo utilizada pois utilizei uma maneira mais simples no código
 
 from random import choice
 

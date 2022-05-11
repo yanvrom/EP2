@@ -60,6 +60,7 @@ while jogarnovamente != 'n':
     #Aqui começa o jogo em sí, que roda até que acabem as tentativas ou que o while pare pelo pais ter sido acertado.
     while tentativasrestantes > 0 and pescolhido != psorteado:
         pescolhido = input('Qual seu palpite? ')
+        pescolhido = pescolhido.lower()
         if pescolhido == psorteado:
             tentativasrestantes -= 1
             break
