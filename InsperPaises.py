@@ -2,7 +2,6 @@ from haversinefunc import haversine
 from adiciona_em_ordemfunc import adiciona_em_ordem
 from sorteia_paisfunc import sorteia_pais
 from basenormalizada import *
-from random import choice
 from mercadodedicas import *
 
 #guardando paises da base bnorm em uma lista
@@ -86,6 +85,11 @@ while jogarnovamente != 'n':
             print()
         
         else:
+            for lista_pais_dist in distancias:
+                if lista_pais_dist[0] == pescolhido:
+                    print('País já escolhido anteriormente')
+                    tentativasrestantes += 1
+                    continue
             dadosescolhido = bnorm[pescolhido]
             distancianova = haversine(EARTH_RADIUS, dados['geo']['latitude'], dados['geo']['longitude'], dadosescolhido['geo']['latitude'], dadosescolhido['geo']['longitude'])
             distancias = adiciona_em_ordem(pescolhido, distancianova, distancias)
