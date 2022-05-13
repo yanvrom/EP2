@@ -74,7 +74,7 @@ while jogarnovamente != 'n':
             if temcerteza == 's':
                 break
         elif pescolhido == 'dica' and len(list(custodasdicasemordem.values())) == 0:
-            print('Não há tentativas suficientes para comprar dicas!')
+            print('\33[1;36mNão há tentativas suficientes para comprar dicas!\33[m')
         #Se for selecionado dica e o numero de tentativas restantes for maior do que a quantidade mínima que será gasta no mercado de dicas:
         elif pescolhido == 'dica' and tentativasrestantes > min(list(custodasdicasemordem.values())):
             retorno = (mercado(psorteado, dicaspossiveis, custodasdicasemordem, dicas, tentativasrestantes, bandeira, letrascapital))
@@ -88,7 +88,7 @@ while jogarnovamente != 'n':
         else:
             for lista_pais_dist in distancias:
                 if lista_pais_dist[0] == pescolhido:
-                    print('País já escolhido anteriormente')
+                    print('\33[1;36mPaís já escolhido anteriormente!\33[m')
                     tentativasrestantes += 1
                     continue
             dadosescolhido = bnorm[pescolhido]
