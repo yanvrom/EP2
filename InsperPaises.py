@@ -140,6 +140,15 @@ while jogarnovamente != 'n':
                 print(f'   -{nomedica}: {infodada}')
         print()
         print(f'Você tem \33[1;36m{tentativasrestantes}\33[m tentativa(s)')
+        
+        #adicionei a atualização das dicas restantes aqui também para se fazer a cada rodada, corrigindo assim um bug de key error
+        dicas_para_eliminar = []
+        for numdica, valordela in custodasdicasemordem.items():
+            if tentativasrestantes <= valordela:
+                dicas_para_eliminar.append(numdica)
+        for dica_para_elim in dicas_para_eliminar:
+            dicaspossiveis.remove(dica_para_elim)
+            del custodasdicasemordem[dica_para_elim]
 
     
     #Comunicando se o jogo foi ganhado ou perdido.
