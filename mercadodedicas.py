@@ -13,10 +13,15 @@ def mercado(psorteado, dicaspossiveis, custodasdicasemordem, dicas, tentativasre
     print('----------------------------------------')
     dicaspossiveisstr = f'{dicaspossiveis}'
     dicaspossiveisstr = dicaspossiveisstr.replace(',' , '|').replace(' ', '')
-    dicaescolhida = int(input(f'Escolha sua opção {dicaspossiveisstr} : '))
+    dicaescolhida = input(f'Escolha sua opção {dicaspossiveisstr} : ')
+    #Aqui uso o isdigit para somente passar a opção escolhida para inteiro se for uma string de dígito.
+    if dicaescolhida.isdigit():
+        dicaescolhida = int(dicaescolhida)
     while dicaescolhida not in dicaspossiveis:
         print()
-        dicaescolhida = int(input('Escolha uma opção possível ou 0 para sair: '))
+        dicaescolhida = (input('Escolha uma opção possível ou 0 para sair: '))
+        if dicaescolhida.isdigit():
+            dicaescolhida = int(dicaescolhida)
         print()
     
     if dicaescolhida == 0:

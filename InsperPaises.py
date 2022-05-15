@@ -11,15 +11,15 @@ EARTH_RADIUS = 6371
 #Dados terminados de carregar, inicia-se a abertura do jogo:
 print(" \33[33m============================")
 print("|                            |")
-print("| Bem-vindo ao Insper Países |")
+print("| \33[1;36mBem-vindo ao Insper Países\33[0;33m |")
 print("|                            |")
-print(" ==== Design de Software ====\33[m")
+print(" ==== \33[1;36mDesign de Software\33[0;33m ====\33[m")
 print()
 print(" Comandos:")
 print()
-print("     \33[32mdica       - entra no mercado de dicas")
-print("     \33[31mdesisto    - desiste da rodada")
-print("     \33[35minventario - exibe sua posição\33[m")
+print("     \33[1;32mdica\33[0m       - entra no mercado de dicas")
+print("     \33[1;31mdesisto\33[0m    - desiste da rodada")
+print("     \33[1;35minventário\33[0m - exibe sua posição\33[m")
 print()
 
 jogarnovamente = 's'
